@@ -1,0 +1,131 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    background-color: beige;
+    text-align: center;
+    padding-top: 10px;
+}
+
+
+.pytaniePodstawowe, .pytanieSpecjalistyczne {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px auto;
+    width: 66%;
+    height: 80vh;
+}
+
+.pytaniePodstawowe {
+    background-color: rgb(226, 152, 152);
+}
+
+.pytanieSpecjalistyczne {
+    background-color: rgb(148, 160, 216);
+}
+
+section img, section video {
+    width: 60%;
+    margin: 10px;
+}
+
+.T, .N, .A, .B, .C {
+    width: 90%;
+    margin: 5px auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.T {
+    background-color: lightgreen;
+}
+
+.N {
+    background-color: lightpink;
+}
+
+.A {
+    background-color: lightgreen;
+}
+
+.B {
+    background-color: lightpink;
+}
+
+.C {
+    background-color: lightblue;
+}
+
+.wybranaOpcja {
+    filter: brightness(105%);
+    box-shadow: 3px 3px 1px dimgray inset;
+}
+
+.pytanie {
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+}
+
+.pytanie.aktywne {
+    visibility: visible;
+    position: relative;
+    opacity: 1;
+}
+
+.poprzednie, .nastepne {
+    padding: 5px;
+    background-color: lightgoldenrodyellow;
+    margin: 30px 10px;
+    display: inline-block;
+    user-select: none;
+}
+
+.poprzednie {
+    position: absolute;
+    left: 30%;
+    bottom: 0px;
+}
+
+.nastepne {
+    position: absolute;
+    right: 30%;
+    bottom: 0px;
+}
+
+.poprzednie:hover, .nastepne:hover {
+    cursor: pointer;
+    background-color: rgb(196, 162, 77);
+}
+
+#progressBarBackground {
+    background-color: lightseagreen;
+    width: 66%;
+    margin: 10px auto;
+    height: 30px;
+    border-radius: 30px;
+}
+
+#progressBar {
+    background-color: mediumslateblue;
+    width: 3.125%;
+    border-radius: 30px;
+    height: 30px;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2px;
+    align-items: center;
+}
+
+#numerPytania {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    font-size: 66%;
+}
