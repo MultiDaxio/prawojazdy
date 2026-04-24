@@ -4,24 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prawo jazdy - baza pytań teoretycznych</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <form action="test.php" method="get">
-        <label for="jezyk">Wybierz język testu:</label>
-        <select name="jezyk" id="jezyk">
-            <option value="pl">polski</option>
-            <option value="en">english</option>
-            <option value="de">deutsch</option>
-            <option value="ua">українська</option>
-        </select>
+        <h2 id='langdisp'>Wybierz język testu</h2>
+        <label for="pl" onclick='pickLang(event); changeDisp("pl")' class='lang langpl'><img src='icons/poland.png'></label>
+        <input type="radio" name="jezyk" value="pl" id="pl" checked>
+        <label for="en" onclick='pickLang(event); changeDisp("en")' class='lang'><img src='icons/uk.png'></label>
+        <input type="radio" name="jezyk" value="en" id="en">
+        <label for="de" onclick='pickLang(event); changeDisp("de")' class='lang'><img src='icons/germany.png'></label>
+        <input type="radio" name="jezyk" value="de" id="de">
+        <label for="ua" onclick='pickLang(event); changeDisp("ua")' class='lang'><img src='icons/ukraine.png'></label>
+        <input type="radio" name="jezyk" value="ua" id="ua">
         <br>
-        <label for="kategoria">Wybierz kategorię prawa jazdy:</label>
+        <h2 id='katdisp'><label for="kategoria">Wybierz kategorię prawa jazdy:</label></h2>
         <select name="kategoria" id="kategoria">
+            <option value="AM">AM</option>
+            <option value="A1">A1</option>
+            <option value="A2">A2</option>
+            <option value="A">A</option>
+            <option value="B1">B1</option>
             <option value="B">B</option>
+            <option value="B+E">B+E</option>
+            <option value="C1">C1</option>
+            <option value="C1+E">C1+E</option>
+            <option value="C">C</option>
+            <option value="C+E">C+E</option>
+            <option value="D1">D1</option>
+            <option value="D1+E">D1+E</option>
+            <option value="D">D</option>
+            <option value="D+E">D+E</option>
+            <option value="T">T</option>
         </select>
         <br>
-        <input type="submit" value="Rozpocznij test">
+        <input type="submit" id='begin' value="Rozpocznij test">
     </form>
 
 </body>
+<script src='js.js'></script>
 </html>

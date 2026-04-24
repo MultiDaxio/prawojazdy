@@ -1,16 +1,28 @@
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelector('.langpl').style.filter = "brightness(115%)";
+});
+
 let obecnePytanie = 1;
-let wszystkieBlokiPytan = document.getElementsByClassName('pytanie');
 
-document.getElementById('numerPytania').innerText = obecnePytanie + "/32";
-console.log(obecnePytanie);
 
+    let wszystkieBlokiPytan = document.getElementsByClassName('pytanie');
+
+    if (wszystkieBlokiPytan.length > 0) {
+        wszystkieBlokiPytan[0].classList.add('aktywne');
+    }
+
+    document.getElementById('numerPytania').innerText = obecnePytanie + "/32";
+    
+
+    document.querySelector('.langpl').style.filter = "brightness(115%)";
 
 if (obecnePytanie == 1) {
-    document.getElementsByClassName('poprzednie')[0].style.display = "none";
+    document.getElementsByClassName('poprzednie')[0].style.visibility = "hidden";
 }
 
 if (obecnePytanie == 32) {
-    document.getElementsByClassName('nastepne')[31].style.display = "none";
+    document.getElementsByClassName('nastepne')[31].style.visibility = "hidden";
 }
 
 if (obecnePytanie != 32) {
@@ -41,7 +53,7 @@ function zmienPytanie(x) {
         document.getElementById('koniec').disabled = false;
     }
     if (obecnePytanie == 32) {
-    document.getElementsByClassName('nastepne')[31].style.display = "none";
+        document.getElementsByClassName('nastepne')[31].style.visibility = "hidden";
     }
 }
 
@@ -52,3 +64,42 @@ document.querySelectorAll('.T, .N, .A, .B, .C').forEach(el => {
         input.checked = true;
     });
 });
+
+function pickLang(event) {
+    let labels = document.querySelectorAll('.lang');
+    for (let i = 0; i < labels.length; i++) {
+        labels[i].style.backgroundColor = "inherit";
+        labels[i].style.filter = "brightness(90%)";
+    }
+    event.currentTarget.style.backgroundColor = "inherit";
+    event.currentTarget.style.filter = "brightness(115%)";
+}
+lang = localStorage.getItem('lang');
+function changeDisp(lang) {
+    let langdisp = document.getElementById('langdisp');
+    let katdisp = document.getElementById('katdisp');
+    let begin = document.getElementById('begin');
+    localStorage.setItem('lang', lang);
+    switch (lang) {
+        case 'pl':
+            langdisp.innerText = "Wybierz język testu";
+            katdisp.innerText = "Wybierz kategorię prawa jazdy:";
+            begin.value = "Rozpocznij test";
+            break;
+        case 'en':
+            langdisp.innerText = "Choose test language";
+            katdisp.innerText = "Choose driver's licence category:";
+            begin.value = "Begin test";
+            break;
+        case 'de':
+            langdisp.innerText = "Testsprache auswählen";
+            katdisp.innerText = "Führerscheinkategorie auswählen:";
+            begin.value = "Test Starten";
+            break;
+        case 'ua':
+            langdisp.innerText = "Виберіть мову тесту";
+            katdisp.innerText = "Виберіть категорію водійського посвідчення:";
+            begin.value = "Почніть тест";
+            break;
+    }
+}

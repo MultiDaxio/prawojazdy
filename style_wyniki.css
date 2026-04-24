@@ -1,0 +1,148 @@
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
+    background-color: beige;
+    text-align: center;
+}
+
+
+.pytaniePodstawowe, .pytanieSpecjalistyczne {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px auto;
+    width: 66%;
+    height: 80vh;
+}
+
+.pytaniePodstawowe {
+    background-color: rgb(226, 152, 152);
+}
+
+.pytanieSpecjalistyczne {
+    background-color: rgb(148, 160, 216);
+}
+
+section img, section video {
+    width: 50%;
+    margin: 10px;
+    max-height: 50vh;
+}
+
+.T, .N, .A, .B, .C, .brak {
+    width: 90%;
+    margin: 10px auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.T {
+    background-color: lightgreen;
+}
+
+.N {
+    background-color: lightpink;
+}
+
+.A {
+    background-color: lightgreen;
+}
+
+.B {
+    background-color: lightpink;
+}
+
+.C {
+    background-color: lightblue;
+}
+
+.brak {
+    background-color: lightgray;
+}
+
+.wybranaOpcja {
+    filter: brightness(105%);
+    box-shadow: 3px 3px 1px dimgray inset;
+}
+
+.poprzednie, .nastepne {
+    padding: 5px;
+    background-color: lightgoldenrodyellow;
+    margin: 30px 10px;
+    display: inline-block;
+    user-select: none;
+}
+
+.poprzednie:hover, .nastepne:hover {
+    cursor: pointer;
+    background-color: rgb(196, 162, 77);
+}
+
+#progressBarBackground {
+    background-color: lightseagreen;
+    width: 66%;
+    margin: 10px auto;
+    height: 30px;
+    border-radius: 30px;
+}
+
+#progressBar {
+    background-color: mediumslateblue;
+    width: 3.125%;
+    border-radius: 30px;
+    height: 30px;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2px;
+    align-items: center;
+}
+
+#numerPytania {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    font-size: 66%;
+}
+
+#wynikPunktowy, a {
+    width: 55px;
+    border-radius: 55px;
+    padding: 5px;
+    margin: 5px;
+    position: fixed;
+    text-align: center;
+}
+
+#wynikPunktowy {
+    top: 10px;
+    left: 10px;
+}
+
+a {
+    top: 10px;
+    right: 10px;
+    background-color: blueviolet;
+    text-decoration: none;
+    font-size: 45px;
+    color: white;
+}
+
+a:hover {
+    background-color: violet;
+}
+
+
+
+.zdane {
+    background-color: greenyellow;
+}
+
+.niezdane {
+    background-color: mediumvioletred;
+}

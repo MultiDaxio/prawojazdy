@@ -1,20 +1,23 @@
 * {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body {
-    background-color: beige;
+    background-color: rgb(253, 226, 226);
     text-align: center;
-    padding-top: 10px;
 }
 
 
 .pytaniePodstawowe, .pytanieSpecjalistyczne {
-    padding: 10px;
-    border-radius: 10px;
+    padding: 10px 0;
+    border-radius: 30px;
     margin: 10px auto;
     width: 66%;
-    height: 80vh;
+    height: 70vh;
+}
+
+.pytanie p {
+    margin: 10px 0;
 }
 
 .pytaniePodstawowe {
@@ -26,15 +29,16 @@ body {
 }
 
 section img, section video {
-    width: 60%;
-    margin: 10px;
+    width: 50%;
+    margin: 20px auto;
+    max-height: 50vh;
 }
 
 .T, .N, .A, .B, .C {
     width: 90%;
     margin: 5px auto;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 30px;
 }
 
 .T {
@@ -66,6 +70,10 @@ section img, section video {
     visibility: hidden;
     position: absolute;
     opacity: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .pytanie.aktywne {
@@ -75,28 +83,26 @@ section img, section video {
 }
 
 .poprzednie, .nastepne {
-    padding: 5px;
-    background-color: lightgoldenrodyellow;
-    margin: 30px 10px;
+    padding: 10px;
+    background-color: inherit;
+    height: 100%;
     display: inline-block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    mix-blend-mode: overlay;
     user-select: none;
-}
-
-.poprzednie {
-    position: absolute;
-    left: 30%;
-    bottom: 0px;
-}
-
-.nastepne {
-    position: absolute;
-    right: 30%;
-    bottom: 0px;
+    border-radius: 30px;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    font-size: 30px;
 }
 
 .poprzednie:hover, .nastepne:hover {
     cursor: pointer;
-    background-color: rgb(196, 162, 77);
+    mix-blend-mode: soft-light;
 }
 
 #progressBarBackground {
@@ -120,6 +126,7 @@ section img, section video {
     justify-content: flex-end;
     padding-right: 2px;
     align-items: center;
+    transition: 0.3s ease-in-out;
 }
 
 #numerPytania {
@@ -128,4 +135,77 @@ section img, section video {
     text-align: center;
     color: white;
     font-size: 66%;
+}
+
+a {
+    width: 55px;
+    border-radius: 55px;
+    padding: 5px;
+    margin: 5px;
+    position: fixed;
+    text-align: center;
+    top: 10px;
+    right: 10px;
+    background-color: blueviolet;
+    text-decoration: none;
+    font-size: 45px;
+    color: white;
+}
+
+a:hover {
+    background-color: violet;
+    transition: 0.3s ease-in-out;
+}
+
+input[type='submit'] {
+    width: 66%;
+    margin: 10px auto;
+    padding: 5px;
+    border-radius: 30px;
+    text-align: center;
+    border: none;
+    color: white;
+    background-color: seagreen;
+    transition: 0.3s ease-in-out;
+}
+
+input[type='submit']:hover {
+    background-color: lightseagreen;
+}
+
+input[type='submit']:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+    color: rgb(220, 220, 220)
+}
+
+input[type='submit']:disabled:hover {
+    background-color: gray;
+    color: rgb(150, 150, 150);
+}
+
+label img {
+    width: 100px;
+}
+
+label {
+    width: 100px;
+    height: 100px;
+}
+
+input[name='jezyk'] {
+    visibility: hidden;
+}
+
+.lang {
+    filter: brightness(90%);
+}
+
+#kategoria, #kategoria option {
+    width: 30%;
+    height: 30px;
+    border-radius: 30px;
+    background-color: lightblue;
+    text-align: center;
+    font-size: 20px;
 }
