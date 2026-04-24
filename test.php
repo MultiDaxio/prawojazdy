@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <h1>Egzamin teoretyczny kategorii <?php echo $_GET['kategoria']; ?></h1>
     <form action="wyniki.php" method="POST">
         <section id='progressBarBackground'>
             <section id="progressBar">
@@ -28,6 +27,42 @@
 
             if (!in_array($wybranyJezyk, $allowed)) {
                 $wybranyJezyk = 'pl';
+            }
+
+            $tak = "Tak";
+            $nie = "Nie";
+            $zakoncz = "Zakończ test";
+            $punktow = "pkt";
+            $str_podstawowy = "PODSTAWOWY";
+            $str_specjalistyczny = "SPECJALISTYCZNY";
+            $str_pytanie = "Pytanie";
+
+            if ($wybranyJezyk == "en") {
+                $tak = "Yes";
+                $nie = "No";
+                $zakoncz = "End test";
+                $punktow = "pts";
+                $str_podstawowy = "BASIC";
+                $str_specjalistyczny = "SPECIALIZED";
+                $str_pytanie = "Question";
+            }
+            else if ($wybranyJezyk == "de") {
+                $tak = "Ja";
+                $nie = "Nein";
+                $zakoncz = "Test Beenden";
+                $punktow = "Punkte";
+                $str_podstawowy = "BASIC";
+                $str_specjalistyczny = "SPEZIALISIERT";
+                $str_pytanie = "Frage";
+            }
+            else if ($wybranyJezyk == "ua") {
+                $tak = "так";
+                $nie = "ні";
+                $zakoncz = "Кінець тесту";
+                $punktow = "бали";
+                $str_podstawowy = "БАЗОВИЙ";
+                $str_specjalistyczny = "СПЕЦІАЛІЗОВАНИЙ";
+                $str_pytanie = "Питання";
             }
 
             $pyt   = $wybranyJezyk === 'pl' ? 'pyt'   : "pyt_$wybranyJezyk";
@@ -100,7 +135,7 @@
                 echo "<section class='pytaniePodstawowe pytanie'>";
                 echo "<span class='poprzednie' onclick='zmienPytanie(-1)'><i class='fa fa-arrow-left'></i></span>";
                 echo "<section class='wrapper'>";
-                echo "<p>Pytanie " . $row['id'] . " (id: " . $row['nr_pyt'] . ") " . $row['zakres'] . ": " . $row['pkt'] . " pkt.</p>";
+                echo "<p>{$str_pytanie} " . $row['id'] . " (" . $row['nr_pyt'] . ") " . $str_podstawowy . ": " . $row['pkt'] . " {$punktow}.</p>";
                 echo "<p>" . $row['pyt'] . "</p>";
                 if (str_ends_with(strval($row['media']), ".jpg")) {
                     echo "<img src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'><br>";
@@ -108,8 +143,8 @@
                 else if (str_ends_with(strval($row['media']), ".mp4")) {
                     echo "<video controls><source src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'></video><br>";
                 }
-                echo "<section class='T'><input type='radio' value='T' id='tak{$row['id']}' name='podstawowe" . $row['id'] . "'><label for='tak{$row['id']}'> Tak</label></section>";
-                echo "<section class='N'><input type='radio' value='N' id='nie{$row['id']}' name='podstawowe" . $row['id'] . "'><label for='nie{$row['id']}'> Nie</label></section>";
+                echo "<section class='T'><input type='radio' value='T' id='tak{$row['id']}' name='podstawowe" . $row['id'] . "'><label for='tak{$row['id']}'> {$tak}</label></section>";
+                echo "<section class='N'><input type='radio' value='N' id='nie{$row['id']}' name='podstawowe" . $row['id'] . "'><label for='nie{$row['id']}'> {$nie}</label></section>";
                 echo "</section>";
                 echo "<span class='nastepne' onclick='zmienPytanie(1)'><i class='fa fa-arrow-right'></i></span>";
                 echo "</section>";
@@ -120,7 +155,7 @@
                 echo "<section class='pytanieSpecjalistyczne pytanie'>";
                 echo "<span class='poprzednie' onclick='zmienPytanie(-1)'><i class='fa fa-arrow-left'></i></span>";
                 echo "<section class='wrapper'>";
-                echo "<p>Pytanie " . $row['id'] . " (id: " . $row['nr_pyt'] . ") " . $row['zakres'] . ": " . $row['pkt'] . " pkt.</p>";
+                echo "<p>{$str_specjalistyczny} " . $row['id'] . " (" . $row['nr_pyt'] . ") " . $str_specjalistyczny . ": " . $row['pkt'] . " {$punktow}</p>";
                 echo "<p>" . $row['pyt'] . "</p>";
                 if (str_ends_with(strval($row['media']), ".jpg")) {
                     echo "<img src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'><br>";
@@ -134,8 +169,8 @@
                     echo "<section class='C'><input type='radio' value='C' id='c{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='c{$row['id']}'> " . $row['odp_c'] . "</label></section>";
                 }
                 else {
-                    echo "<section class='T'><input type='radio' value='T' id='tak{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='tak{$row['id']}'> Tak</label></section>";
-                    echo "<section class='N'><input type='radio' value='N' id='nie{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='nie{$row['id']}'> Nie</label></section>";
+                    echo "<section class='T'><input type='radio' value='T' id='tak{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='tak{$row['id']}'> {$tak}</label></section>";
+                    echo "<section class='N'><input type='radio' value='N' id='nie{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='nie{$row['id']}'> {$nie}</label></section>";
                 }
                 echo "</section>";
                 echo "<span class='nastepne' onclick='zmienPytanie(1)'><i class='fa fa-arrow-right'></i></span>";
@@ -149,7 +184,7 @@
             echo "<input type='hidden' name='kategoria' value='" . $_GET['kategoria'] . "'>";
             
         ?>
-        <input type="submit" id='koniec' value="Zakończ test" disabled>
+        <input type="submit" id='koniec' value="<?php echo $zakoncz; ?>" disabled>
     </form>
 </body>
 <script src="js.js">
