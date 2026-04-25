@@ -1,5 +1,5 @@
 ## TO DO
-- [ ] podswietlenie flagi po najechaniu
+- [x] podswietlenie flagi po najechaniu
 - [ ] tekst alternatywny na fladze
 - [ ] gdzies na boku strony startowej zawartosc typu FAQ itd
 
@@ -14,3 +14,4 @@
 - [ ] oznaczyc czerwone/zielone na odpowiedzi czy byla poprawna
 
 - [ ] replay button w lewym dolnym rogu
+- [ ] zapamietaj ktora kategorie robisz
