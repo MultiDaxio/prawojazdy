@@ -1,3 +1,8 @@
+<?php
+    ini_set('display_errors', 0);
+    error_reporting(E_ALL);
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -6,6 +11,8 @@
     <title>Wyniki egzaminu</title>
     <link rel="stylesheet" href="style_wyniki.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
 </head>
 <body>
     <?php
@@ -16,8 +23,6 @@
         if (!in_array($wybranyJezyk, $allowed)) {
             $wybranyJezyk = 'pl';
         }
-
-        echo $wybranyJezyk;
 
         $tak = "Tak";
         $nie = "Nie";
@@ -80,7 +85,9 @@
 
         $listaIdPytan = $_POST['listaIdPytan'];
         $numerPytania = 0;
-        $conn = mysqli_connect("localhost", "root", "", "prawo_jazdy");
+        require __DIR__ . '/conf/config.php';
+        $conn = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+    	$conn->set_charset("utf8mb4");
         $query = "SELECT id, $pyt as pyt, poprawna, pkt, media, nr_pyt, zakres, $odp_a as odp_a, $odp_b as odp_b, $odp_c as odp_c
                 FROM pula_pytan
                 WHERE id IN ($listaIdPytan)
@@ -131,10 +138,10 @@
                 echo "<section class='$odpowiedz'><label>$odpowiedz</label></section>";
               
                 if ($odpowiedz == $row['poprawna']) {
-                    echo ". {$row['pkt']} $punktow.<br>";
+                    echo "{$row['pkt']} $punktow.<br>";
                     $pkt += intval($row['pkt']);
                 } else {
-                    echo ". 0 $punktow.<br>";
+                    echo "0 $punktow<br>";
                 }
 
             } else {
@@ -187,6 +194,8 @@
         echo "</section>";
         mysqli_close($conn);
         echo "<a href='index.php'><i class='fa fa-home'></i></a>";
+        
     ?>
+    <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'>Zgłoś błąd</span></a>
 </body>
 </html>

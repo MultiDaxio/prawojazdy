@@ -1,3 +1,8 @@
+<?php
+    ini_set('display_errors', 0);
+    error_reporting(E_ALL);
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -6,6 +11,8 @@
     <title>Prawo jazdy - baza pytań teoretycznych</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
 </head>
 <body>
     <form action="test.php" method="get">
@@ -41,7 +48,8 @@
         <br>
         <input type="submit" id='begin' value="Rozpocznij test">
     </form>
+    <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'>Zgłoś błąd</span></a>
 
 </body>
-<script src='js.js'></script>
+<script src='js.js' defer></script>
 </html>

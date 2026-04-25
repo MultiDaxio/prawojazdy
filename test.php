@@ -1,3 +1,9 @@
+<?php
+    ini_set('display_errors', 0);
+    error_reporting(E_ALL);
+?>
+
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -6,8 +12,11 @@
     <title>Test kategorii <?php echo $_GET['kategoria']; ?></title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+
+
     <form action="wyniki.php" method="POST">
         <section id='progressBarBackground'>
             <section id="progressBar">
@@ -19,8 +28,9 @@
 
             $listaIdPytan = [];
             $lsitaOdpowiedzi = [];
-
-            $conn = mysqli_connect("localhost", "root", "", "prawo_jazdy");
+            require __DIR__ . '/conf/config.php';
+            $conn = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+        	$conn->set_charset("utf8mb4");
             $wybranyJezyk = $_GET['jezyk'] ?? 'pl';
 
             $allowed = ['pl', 'en', 'de', 'ua'];
@@ -137,14 +147,14 @@
                 echo "<section class='wrapper'>";
                 echo "<p>{$str_pytanie} " . $row['id'] . " (" . $row['nr_pyt'] . ") " . $str_podstawowy . ": " . $row['pkt'] . " {$punktow}.</p>";
                 echo "<p>" . $row['pyt'] . "</p>";
-                if (str_ends_with(strval($row['media']), ".jpg")) {
-                    echo "<img src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'><br>";
+                if (str_ends_with(strval(strtolower($row['media'])), ".jpg")) {
+                    echo "<img src='media/" . trim($row['media']) . "' alt='media/" . $row['media'] . "'><br>";
                 }
                 else if (str_ends_with(strval($row['media']), ".mp4")) {
-                    echo "<video controls><source src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'></video><br>";
+                    echo "<video controls><source src='media/" . trim($row['media']) . "' alt='media/" . $row['media'] . "'></video><br>";
                 }
-                echo "<section class='T'><input type='radio' value='T' id='tak{$row['id']}' name='podstawowe" . $row['id'] . "'><label for='tak{$row['id']}'> {$tak}</label></section>";
-                echo "<section class='N'><input type='radio' value='N' id='nie{$row['id']}' name='podstawowe" . $row['id'] . "'><label for='nie{$row['id']}'> {$nie}</label></section>";
+                echo "<label for='tak{$row['id']}'><section class='T'><input type='radio' value='T' id='tak{$row['id']}' name='podstawowe" . $row['id'] . "'> {$tak}</section></label>";
+                echo "<label for='nie{$row['id']}'><section class='N'><input type='radio' value='N' id='nie{$row['id']}' name='podstawowe" . $row['id'] . "'> {$nie}</section></label>";
                 echo "</section>";
                 echo "<span class='nastepne' onclick='zmienPytanie(1)'><i class='fa fa-arrow-right'></i></span>";
                 echo "</section>";
@@ -157,20 +167,20 @@
                 echo "<section class='wrapper'>";
                 echo "<p>{$str_pytanie} " . $row['id'] . " (" . $row['nr_pyt'] . ") " . $str_specjalistyczny . ": " . $row['pkt'] . " {$punktow}</p>";
                 echo "<p>" . $row['pyt'] . "</p>";
-                if (str_ends_with(strval($row['media']), ".jpg")) {
-                    echo "<img src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'><br>";
+                if (str_ends_with(strval(strtolower($row['media'])), ".jpg")) {
+                    echo "<img src='media/" . trim($row['media']) . "' alt='media/" . $row['media'] . "'><br>";
                 }
                 else if (str_ends_with(strval($row['media']), ".mp4")) {
-                    echo "<video controls><source src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'></video><br>";
+                    echo "<video controls><source src='media/" . trim($row['media']) . "' alt='media/" . $row['media'] . "'></video><br>";
                 }
                 if ($row['odp_a'] != "" && $row['odp_b'] != "" && $row['odp_c'] != "") {
-                    echo "<section class='A'><input type='radio' value='A' id='a{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='a{$row['id']}'> " . $row['odp_a'] . "</label></section>";
-                    echo "<section class='B'><input type='radio' value='B' id='b{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='b{$row['id']}'> " . $row['odp_b'] . "</label></section>";
-                    echo "<section class='C'><input type='radio' value='C' id='c{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='c{$row['id']}'> " . $row['odp_c'] . "</label></section>";
+                    echo "<label for='a{$row['id']}'> <section class='A'><input type='radio' value='A' id='a{$row['id']}' name='specjalistyczne" . $row['id'] . "'>" . $row['odp_a'] . "</section></label>";
+                    echo "<label for='b{$row['id']}'> <section class='B'><input type='radio' value='B' id='b{$row['id']}' name='specjalistyczne" . $row['id'] . "'>" . $row['odp_b'] . "</section></label>";
+                    echo "<label for='c{$row['id']}'> <section class='C'><input type='radio' value='C' id='c{$row['id']}' name='specjalistyczne" . $row['id'] . "'>" . $row['odp_c'] . "</section></label>";
                 }
                 else {
-                    echo "<section class='T'><input type='radio' value='T' id='tak{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='tak{$row['id']}'> {$tak}</label></section>";
-                    echo "<section class='N'><input type='radio' value='N' id='nie{$row['id']}' name='specjalistyczne" . $row['id'] . "'><label for='nie{$row['id']}'> {$nie}</label></section>";
+                    echo "<label for='tak{$row['id']}'> <section class='T'><input type='radio' value='T' id='tak{$row['id']}' name='specjalistyczne" . $row['id'] . "'>{$tak}</section></label>";
+                    echo "<label for='nie{$row['id']}'><section class='N'><input type='radio' value='N' id='nie{$row['id']}' name='specjalistyczne" . $row['id'] . "'> {$nie}</section></label>";
                 }
                 echo "</section>";
                 echo "<span class='nastepne' onclick='zmienPytanie(1)'><i class='fa fa-arrow-right'></i></span>";
@@ -186,7 +196,11 @@
             
         ?>
         <input type="submit" id='koniec' value="<?php echo $zakoncz; ?>" disabled>
+        <h4>Jeżeli obrazy lub filmy nie wczytują się od razu, poczekaj chwilę.</h4>
+        
     </form>
+    <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'>Zgłoś błąd</span></a>
+
 </body>
 <script src="js.js">
 

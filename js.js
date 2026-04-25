@@ -1,6 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelector('.langpl').style.filter = "brightness(115%)";
+
+    
+    document.querySelectorAll('.T, .N, .A, .B, .C').forEach(el => {
+        el.addEventListener('click', function(e) {
+
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') {
+                return;
+            }
+
+            const input = this.querySelector('input');
+            if (input) {
+                input.checked = true;
+            }
+        });
+    });
+
 });
 
 let obecnePytanie = 1;
@@ -15,7 +31,6 @@ let obecnePytanie = 1;
     document.getElementById('numerPytania').innerText = obecnePytanie + "/32";
     
 
-    document.querySelector('.langpl').style.filter = "brightness(115%)";
 
 if (obecnePytanie == 1) {
     document.getElementsByClassName('poprzednie')[0].style.visibility = "hidden";
@@ -56,14 +71,6 @@ function zmienPytanie(x) {
         document.getElementsByClassName('nastepne')[31].style.visibility = "hidden";
     }
 }
-
-
-document.querySelectorAll('.T, .N, .A, .B, .C').forEach(el => {
-    el.addEventListener('click', function(e) {
-        const input = this.querySelector('input');
-        input.checked = true;
-    });
-});
 
 function pickLang(event) {
     let labels = document.querySelectorAll('.lang');
