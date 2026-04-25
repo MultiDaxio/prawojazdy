@@ -15,6 +15,11 @@
 
 </head>
 <body>
+    <nav id="nawigacjaWyniki" onload="wypelnijNawigacje()">
+        <h2>Nawigacja</h2>
+        <section id="box"></section>
+    </nav>
+
     <?php
         $wybranyJezyk = $_POST['jezyk'];
 
@@ -34,6 +39,7 @@
         $str_poprawna = "Poprawna odpowiedź";
         $str_twoja = "Twoja odpowiedź";
         $str_brak = "brak";
+        $zglos = "Zgłoś błąd";
 
         if ($wybranyJezyk == "en") {
             $tak = "Yes";
@@ -46,6 +52,8 @@
             $str_poprawna = "Correct answer";
             $str_twoja = "Your answer";
             $str_brak = "none";
+            $zglos = "Report error";
+
         }
         else if ($wybranyJezyk == "de") {
             $tak = "Ja";
@@ -58,6 +66,7 @@
             $str_poprawna = "Richtige Antwort";
             $str_twoja = "Ihre Antwort";
             $str_brak = "Keine";
+            $zglos = "Fehler melden";
         }
         else if ($wybranyJezyk == "ua") {
             $tak = "так";
@@ -70,6 +79,7 @@
             $str_poprawna = "Правильна відповідь";
             $str_twoja = "Ваша відповідь";
             $str_brak = "немає";
+            $zglos = "Повідомити про помилку";
         }
 
         $pyt   = $wybranyJezyk === 'pl' ? 'pyt'   : "pyt_$wybranyJezyk";
@@ -77,11 +87,7 @@
         $odp_b = $wybranyJezyk === 'pl' ? 'odp_b' : "odp_b_$wybranyJezyk";
         $odp_c = $wybranyJezyk === 'pl' ? 'odp_c' : "odp_c_$wybranyJezyk";
 
-
-
-
-
-
+        $poprawneBledne = [];
 
         $listaIdPytan = $_POST['listaIdPytan'];
         $numerPytania = 0;
@@ -98,11 +104,11 @@
         while($row = mysqli_fetch_assoc($result)) {
             if ($numerPytania < 20) {
                 $ktorePytanie = "podstawowe" . $row['id'];
-                echo "<section class='pytanie pytaniePodstawowe'>";
+                echo "<section class='pytanie pytaniePodstawowe' id='sekcja{$numerPytania}'>";
 
             } else {
                 $ktorePytanie = "specjalistyczne" . $row['id'];
-                echo "<section class='pytane pytanieSpecjalistyczne'>";
+                echo "<section class='pytane pytanieSpecjalistyczne' id='sekcja{$numerPytania}'>";
             }
 
             $numerPytania++;
@@ -135,13 +141,15 @@
                 }
 
                 echo "<h3>$str_twoja</h3>";
-                echo "<section class='$odpowiedz'><label>$odpowiedz</label></section>";
+                echo "<section class='$odpowiedz'><label>" . $odpowiedz . "</label></section>";
               
                 if ($odpowiedz == $row['poprawna']) {
-                    echo "{$row['pkt']} $punktow.<br>";
+                    echo "<section class='poprawny'>{$row['pkt']} $punktow</section>";
                     $pkt += intval($row['pkt']);
+                    array_push($poprawneBledne, 1);
                 } else {
-                    echo "0 $punktow<br>";
+                    echo "<section class='niepoprawny'>0 $punktow</section>";
+                    array_push($poprawneBledne, 0);
                 }
 
             } else {
@@ -174,7 +182,8 @@
                                 
                 echo "<h3>$str_twoja</h3>";
                 echo "<section class='brak'><label>$str_brak</label></section>";
-
+                echo "<section class='brakodp'><label>0 $punktow</label></section>";
+                array_push($poprawneBledne, "b");
             }
             echo "</section>";
         }
@@ -194,8 +203,12 @@
         echo "</section>";
         mysqli_close($conn);
         echo "<a href='index.php'><i class='fa fa-home'></i></a>";
-        
+        $poprawneBledne = implode(",", $poprawneBledne);
+        echo "<input type='hidden' id='poprawneBledne' value='{$poprawneBledne}'>";
+        echo $poprawneBledne;
     ?>
-    <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'>Zgłoś błąd</span></a>
+    <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'><?php echo $zglos; ?></span></a>
 </body>
+<script src="js.js"></script>
+<script src="nawigacja.js"></script>
 </html>

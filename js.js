@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelector('.langpl').style.filter = "brightness(115%)";
@@ -16,21 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
+    wczytajKategorie();
 });
 
 let obecnePytanie = 1;
+let wszystkieBlokiPytan = document.getElementsByClassName('pytanie');
 
+if (wszystkieBlokiPytan.length > 0) {
+    wszystkieBlokiPytan[0].classList.add('aktywne');
+}
 
-    let wszystkieBlokiPytan = document.getElementsByClassName('pytanie');
-
-    if (wszystkieBlokiPytan.length > 0) {
-        wszystkieBlokiPytan[0].classList.add('aktywne');
-    }
-
-    document.getElementById('numerPytania').innerText = obecnePytanie + "/32";
+document.getElementById('numerPytania').innerText = obecnePytanie + "/32";
     
-
 
 if (obecnePytanie == 1) {
     document.getElementsByClassName('poprzednie')[0].style.visibility = "hidden";
@@ -110,3 +109,26 @@ function changeDisp(lang) {
             break;
     }
 }
+
+function highlightOn(event) {
+    event.target.style.filter = "brightness(130%)";
+    event.target.style.transform = "translateY(5px)";
+}
+
+function highlightOff(event) {
+    event.target.style.filter = "brightness(90%)";
+    event.target.style.transform = "translateY(0px)";
+}
+
+function wczytajKategorie() {
+    console.log("Wczytano:", localStorage.getItem("kategoria"));
+    document.getElementById("kategoria").value = localStorage.getItem("kategoria");
+}
+
+function zapamietajKategorie() {
+    localStorage.setItem("kategoria", document.getElementById("kategoria").value);
+    console.log("Zapisano:", document.getElementById("kategoria").value);
+}
+
+
+

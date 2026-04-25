@@ -17,17 +17,17 @@
 <body>
     <form action="test.php" method="get">
         <h2 id='langdisp'>Wybierz język testu</h2>
-        <label for="pl" onclick='pickLang(event); changeDisp("pl")' class='lang langpl'><img src='icons/poland.png'></label>
+        <label for="pl" onclick='pickLang(event); changeDisp("pl")' class='lang langpl'><img onmouseover="highlightOn(event)" onmouseout="highlightOff(event)"  class="flaga" src='icons/poland.png' alt='polski'></label>
         <input type="radio" name="jezyk" value="pl" id="pl" checked>
-        <label for="en" onclick='pickLang(event); changeDisp("en")' class='lang'><img src='icons/uk.png'></label>
+        <label for="en" onclick='pickLang(event); changeDisp("en")' class='lang'><img onmouseover="highlightOn(event)" onmouseout="highlightOff(event)" class="flaga" src='icons/uk.png' alt='english'></label>
         <input type="radio" name="jezyk" value="en" id="en">
-        <label for="de" onclick='pickLang(event); changeDisp("de")' class='lang'><img src='icons/germany.png'></label>
+        <label for="de" onclick='pickLang(event); changeDisp("de")' class='lang'><img onmouseover="highlightOn(event)" onmouseout="highlightOff(event)" class="flaga" src='icons/germany.png' alt='deutsch'></label>
         <input type="radio" name="jezyk" value="de" id="de">
-        <label for="ua" onclick='pickLang(event); changeDisp("ua")' class='lang'><img src='icons/ukraine.png'></label>
+        <label for="ua" onclick='pickLang(event); changeDisp("ua")' class='lang'><img onmouseover="highlightOn(event)" onmouseout="highlightOff(event)" class="flaga" src='icons/ukraine.png' alt='українська'></label>
         <input type="radio" name="jezyk" value="ua" id="ua">
         <br>
         <h2 id='katdisp'><label for="kategoria">Wybierz kategorię prawa jazdy:</label></h2>
-        <select name="kategoria" id="kategoria">
+        <select name="kategoria" id="kategoria" oninput="zapamietajKategorie()" onload="wczytajKategorie()">
             <option value="AM">AM</option>
             <option value="A1">A1</option>
             <option value="A2">A2</option>
@@ -49,7 +49,18 @@
         <input type="submit" id='begin' value="Rozpocznij test">
     </form>
     <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'>Zgłoś błąd</span></a>
-
+    <section id="faq">
+        <h2>Dlaczego powstała ta strona?</h2>
+        <p>Bo baza pytań, wszystkie zdjęcia i filmy do egzaminu są za darmo, a strony do rozwiązywania egzaminów, które widziałem, niekoniecznie.</p>
+        <h2>Jak mam korzystać z tej strony?</h2>
+        <ol>
+            <li>wybierz język testu</li>
+            <li>wybierz kategorię prawa jazdy</li>
+            <li>przejdź do rozwiązywania testu</li>
+            <li>opcja do zakończenia testu uaktywni się po dotarciu na ostatnie pytanie</li>
+            <li>sprawdź swoje odpowiedzi; w lewym górnym rogu pojawi sie wynik punktowy</li>
+        </ol>
+    </section>
 </body>
 <script src='js.js' defer></script>
 </html>

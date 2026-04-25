@@ -2,6 +2,10 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: beige;
     text-align: center;
@@ -30,11 +34,31 @@ section img, section video {
     max-height: 50vh;
 }
 
-.T, .N, .A, .B, .C, .brak {
+.T, .N, .A, .B, .C, .brak{
     width: 90%;
     margin: 10px auto;
     padding: 5px;
     border-radius: 5px;
+}
+
+.brakodp, .poprawny, .niepoprawny {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 150%;
+    border-radius: 100px;
+    margin: 10px auto;
+}
+
+.poprawny {
+    background-color: green;
+}
+
+.niepoprawny {
+    background-color: red;
 }
 
 .T {
@@ -57,7 +81,7 @@ section img, section video {
     background-color: lightblue;
 }
 
-.brak {
+.brak, .brakodp {
     background-color: lightgray;
 }
 
@@ -124,7 +148,7 @@ section img, section video {
     left: 10px;
 }
 
-a {
+a[href='index.php'] {
     top: 10px;
     right: 10px;
     background-color: blueviolet;
@@ -133,11 +157,9 @@ a {
     color: white;
 }
 
-a:hover {
+a[href='index.php']:hover {
     background-color: violet;
 }
-
-
 
 .zdane {
     background-color: greenyellow;
@@ -175,4 +197,53 @@ a[href='mailto:adikk99@gmail.com']:hover {
 #zglos {
     font-size: 10px;
 
+}
+
+#nawigacjaWyniki {
+    position: fixed;
+    top: 30vh;
+    left: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: lightgray;
+}
+
+#box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.kostkaNawigacji {
+    width: 15%;
+    height: 30px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: gray;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    font-size: 100%;
+}
+
+h2 {
+    font-size: 100%;
+}
+
+.kostkaNawigacji:hover {
+    filter: brightness(130%);
+    transition: 0.3s ease-in-out;
+}
+
+.kostkaNawigacji a {
+    text-decoration: none;
+    color: white;
 }

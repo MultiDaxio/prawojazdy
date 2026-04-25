@@ -25,6 +25,7 @@
         </section>
         <?php
             echo "<a href='index.php'><i class='fa fa-home'></i></a>";
+            
 
             $listaIdPytan = [];
             $lsitaOdpowiedzi = [];
@@ -46,6 +47,9 @@
             $str_podstawowy = "PODSTAWOWY";
             $str_specjalistyczny = "SPECJALISTYCZNY";
             $str_pytanie = "Pytanie";
+            $reset = "Zresetuj test";
+            $zglos = "Zgłoś błąd";
+            $poczekaj = "Jeżeli zdjęcie lub film nie wczytuje się od razu, poczekaj chwilę.";
 
             if ($wybranyJezyk == "en") {
                 $tak = "Yes";
@@ -55,6 +59,9 @@
                 $str_podstawowy = "BASIC";
                 $str_specjalistyczny = "SPECIALIZED";
                 $str_pytanie = "Question";
+                $reset = "Reset test";
+                $zglos = "Report error";
+                $poczekaj = "If the photo or video doesn't load at first, wait a moment.";
             }
             else if ($wybranyJezyk == "de") {
                 $tak = "Ja";
@@ -64,6 +71,9 @@
                 $str_podstawowy = "BASIC";
                 $str_specjalistyczny = "SPEZIALISIERT";
                 $str_pytanie = "Frage";
+                $reset = "Test zurücksetzen";
+                $zglos = "Fehler melden";
+                $poczekaj = "Sollte das Foto oder Video nicht sofort geladen werden, einen Moment wort.";
             }
             else if ($wybranyJezyk == "ua") {
                 $tak = "так";
@@ -73,7 +83,12 @@
                 $str_podstawowy = "БАЗОВИЙ";
                 $str_specjalistyczny = "СПЕЦІАЛІЗОВАНИЙ";
                 $str_pytanie = "Питання";
+                $reset = "Скинути тест";
+                $zglos = "Повідомити про помилку";
+                $poczekaj = "Якщо фото або відео не завантажується одразу, зачекайте трохи.";
             }
+
+            echo "<a id='reset' href='test.php?jezyk=" . $_GET['jezyk'] . "&kategoria=" . $_GET['kategoria'] . "'><i class='fa fa-repeat'></i><span >$reset</span></a>";
 
             $pyt   = $wybranyJezyk === 'pl' ? 'pyt'   : "pyt_$wybranyJezyk";
             $odp_a = $wybranyJezyk === 'pl' ? 'odp_a' : "odp_a_$wybranyJezyk";
@@ -193,13 +208,13 @@
             echo "<input type='hidden' name='listaIdPytan' value=$listaIdPytan>";
             echo "<input type='hidden' name='kategoria' value='" . $_GET['kategoria'] . "'>";
             echo "<input type='hidden' name='jezyk' value='{$wybranyJezyk}'>";
-            
+            echo "<a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'>$zglos</span></a>";
+        
         ?>
         <input type="submit" id='koniec' value="<?php echo $zakoncz; ?>" disabled>
-        <h4>Jeżeli obrazy lub filmy nie wczytują się od razu, poczekaj chwilę.</h4>
+        <h4><?php echo $poczekaj; ?></h4>
         
     </form>
-    <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'>Zgłoś błąd</span></a>
 
 </body>
 <script src="js.js">
