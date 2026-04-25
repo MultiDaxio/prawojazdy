@@ -15,3 +15,5 @@
 
 - [ ] replay button w lewym dolnym rogu
 - [ ] zapamietaj ktora kategorie robisz
+
+- [ ] zrobic plik Znak D1+T6!.mp4 (pytabue 3440 - 13578)
