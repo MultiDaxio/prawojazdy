@@ -155,7 +155,7 @@
                 echo "<section class='pytanieSpecjalistyczne pytanie'>";
                 echo "<span class='poprzednie' onclick='zmienPytanie(-1)'><i class='fa fa-arrow-left'></i></span>";
                 echo "<section class='wrapper'>";
-                echo "<p>{$str_specjalistyczny} " . $row['id'] . " (" . $row['nr_pyt'] . ") " . $str_specjalistyczny . ": " . $row['pkt'] . " {$punktow}</p>";
+                echo "<p>{$str_pytanie} " . $row['id'] . " (" . $row['nr_pyt'] . ") " . $str_specjalistyczny . ": " . $row['pkt'] . " {$punktow}</p>";
                 echo "<p>" . $row['pyt'] . "</p>";
                 if (str_ends_with(strval($row['media']), ".jpg")) {
                     echo "<img src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'><br>";
@@ -182,6 +182,7 @@
             $listaIdPytan = implode(",", $listaIdPytan);
             echo "<input type='hidden' name='listaIdPytan' value=$listaIdPytan>";
             echo "<input type='hidden' name='kategoria' value='" . $_GET['kategoria'] . "'>";
+            echo "<input type='hidden' name='jezyk' value='{$wybranyJezyk}'>";
             
         ?>
         <input type="submit" id='koniec' value="<?php echo $zakoncz; ?>" disabled>

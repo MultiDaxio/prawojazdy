@@ -8,12 +8,80 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <h1>Wyniki egzaminu kategorii <?php echo $_POST['kategoria']; ?></h1>
     <?php
+        $wybranyJezyk = $_POST['jezyk'];
+
+        $allowed = ['pl', 'en', 'de', 'ua'];
+
+        if (!in_array($wybranyJezyk, $allowed)) {
+            $wybranyJezyk = 'pl';
+        }
+
+        echo $wybranyJezyk;
+
+        $tak = "Tak";
+        $nie = "Nie";
+        $zakoncz = "Zakończ test";
+        $punktow = "pkt";
+        $str_podstawowy = "PODSTAWOWY";
+        $str_specjalistyczny = "SPECJALISTYCZNY";
+        $str_pytanie = "Pytanie";
+        $str_poprawna = "Poprawna odpowiedź";
+        $str_twoja = "Twoja odpowiedź";
+        $str_brak = "brak";
+
+        if ($wybranyJezyk == "en") {
+            $tak = "Yes";
+            $nie = "No";
+            $zakoncz = "End test";
+            $punktow = "pts";
+            $str_podstawowy = "BASIC";
+            $str_specjalistyczny = "SPECIALIZED";
+            $str_pytanie = "Question";
+            $str_poprawna = "Correct answer";
+            $str_twoja = "Your answer";
+            $str_brak = "none";
+        }
+        else if ($wybranyJezyk == "de") {
+            $tak = "Ja";
+            $nie = "Nein";
+            $zakoncz = "Test Beenden";
+            $punktow = "Punkte";
+            $str_podstawowy = "BASIC";
+            $str_specjalistyczny = "SPEZIALISIERT";
+            $str_pytanie = "Frage";
+            $str_poprawna = "Richtige Antwort";
+            $str_twoja = "Ihre Antwort";
+            $str_brak = "Keine";
+        }
+        else if ($wybranyJezyk == "ua") {
+            $tak = "так";
+            $nie = "ні";
+            $zakoncz = "Кінець тесту";
+            $punktow = "бали";
+            $str_podstawowy = "БАЗОВИЙ";
+            $str_specjalistyczny = "СПЕЦІАЛІЗОВАНИЙ";
+            $str_pytanie = "Питання";
+            $str_poprawna = "Правильна відповідь";
+            $str_twoja = "Ваша відповідь";
+            $str_brak = "немає";
+        }
+
+        $pyt   = $wybranyJezyk === 'pl' ? 'pyt'   : "pyt_$wybranyJezyk";
+        $odp_a = $wybranyJezyk === 'pl' ? 'odp_a' : "odp_a_$wybranyJezyk";
+        $odp_b = $wybranyJezyk === 'pl' ? 'odp_b' : "odp_b_$wybranyJezyk";
+        $odp_c = $wybranyJezyk === 'pl' ? 'odp_c' : "odp_c_$wybranyJezyk";
+
+
+
+
+
+
+
         $listaIdPytan = $_POST['listaIdPytan'];
         $numerPytania = 0;
         $conn = mysqli_connect("localhost", "root", "", "prawo_jazdy");
-        $query = "SELECT id, pyt, poprawna, pkt, media, nr_pyt, zakres, odp_a, odp_b, odp_c
+        $query = "SELECT id, $pyt as pyt, poprawna, pkt, media, nr_pyt, zakres, $odp_a as odp_a, $odp_b as odp_b, $odp_c as odp_c
                 FROM pula_pytan
                 WHERE id IN ($listaIdPytan)
                 ORDER BY FIELD(id, $listaIdPytan)";
@@ -34,7 +102,7 @@
 
             if (isset($_POST[$ktorePytanie])) {
                 $odpowiedz = $_POST[$ktorePytanie];
-                echo "<p>Pytanie " . $row['id'] . " (id: " . $row['nr_pyt'] . ") " . $row['zakres'] . ": " . $row['pkt'] . " pkt.</p>";
+                echo "<p>$str_pytanie " . $row['id'] . " (id: " . $row['nr_pyt'] . ") " . ($numerPytania <= 20 ? $str_podstawowy : $str_specjalistyczny) . ": " . $row['pkt'] . " $punktow.</p>";
                 echo "<p>" . $row['pyt'] . "</p>";
                 if (str_ends_with(strval($row['media']), ".jpg")) {
                     echo "<img src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'><br>";
@@ -42,12 +110,12 @@
                 else if (str_ends_with(strval($row['media']), ".mp4")) {
                     echo "<video controls><source src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'></video><br>";
                 }
-                echo "<h3>Poprawna odpowiedź</h3>";
+                echo "<h3>$str_poprawna</h3>";
                 if ($row['poprawna'] == 'T') {
-                    echo "<section class='T'><label for='tak{$row['id']}'> Tak</label></section>";
+                    echo "<section class='T'><label for='tak{$row['id']}'> $tak</label></section>";
                 }
                 else if ($row['poprawna'] == 'N'){
-                    echo "<section class='N'><label for='nie{$row['id']}'> Nie</label></section>";
+                    echo "<section class='N'><label for='nie{$row['id']}'> $nie</label></section>";
                 }
                 else if ($row['poprawna'] == 'A'){
                     echo "<section class='A'><label for='nie{$row['id']}'> A</label></section>";
@@ -59,18 +127,18 @@
                     echo "<section class='C'><label for='nie{$row['id']}'> C</label></section>";
                 }
 
-                echo "<h3>Twoja odpowiedź</h3>";
+                echo "<h3>$str_twoja</h3>";
                 echo "<section class='$odpowiedz'><label>$odpowiedz</label></section>";
               
                 if ($odpowiedz == $row['poprawna']) {
-                    echo ". {$row['pkt']} pkt.<br>";
+                    echo ". {$row['pkt']} $punktow.<br>";
                     $pkt += intval($row['pkt']);
                 } else {
-                    echo ". 0 pkt.<br>";
+                    echo ". 0 $punktow.<br>";
                 }
 
             } else {
-                echo "<p>Pytanie " . $row['id'] . " (id: " . $row['nr_pyt'] . ") " . $row['zakres'] . ": " . $row['pkt'] . " pkt.</p>";
+                echo "<p>$str_pytanie " . $row['id'] . " (id: " . $row['nr_pyt'] . ") " . ($numerPytania <= 20 ? $str_podstawowy : $str_specjalistyczny) . ": " . $row['pkt'] . " $punktow.</p>";
                 echo "<p>" . $row['pyt'] . "</p>";
                 if (str_ends_with(strval($row['media']), ".jpg")) {
                     echo "<img src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'><br>";
@@ -79,13 +147,13 @@
                     echo "<video controls><source src='media/" . $row['media'] . "' alt='media/" . $row['media'] . "'></video><br>";
                 }
 
-                echo "<h3>Poprawna odpowiedź</h3>";
+                echo "<h3>$str_poprawna</h3>";
 
                 if ($row['poprawna'] == 'T') {
-                    echo "<section class='T'><label for='tak{$row['id']}'> Tak</label></section>";
+                    echo "<section class='T'><label for='tak{$row['id']}'> $tak</label></section>";
                 }
                 else if ($row['poprawna'] == 'N'){
-                    echo "<section class='N'><label for='nie{$row['id']}'> Nie</label></section>";
+                    echo "<section class='N'><label for='nie{$row['id']}'> $nie</label></section>";
                 }
                 else if ($row['poprawna'] == 'A'){
                     echo "<section class='A'><label for='nie{$row['id']}'> A</label></section>";
@@ -97,8 +165,8 @@
                     echo "<section class='C'><label for='nie{$row['id']}'> C</label></section>";
                 }
                                 
-                echo "<h3>Twoja odpowiedź</h3>";
-                echo "<section class='brak'><label>Brak</label></section>";
+                echo "<h3>$str_twoja</h3>";
+                echo "<section class='brak'><label>$str_brak</label></section>";
 
             }
             echo "</section>";
