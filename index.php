@@ -46,6 +46,7 @@
             <option value="T">T</option>
         </select>
         <br>
+        <input type="number" id="seed" name="seed" placeholder="Seed losowania" min="0" max="9999999999"><br>
         <input type="submit" id='begin' value="Rozpocznij test">
     </form>
     <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'>Zgłoś błąd</span></a>

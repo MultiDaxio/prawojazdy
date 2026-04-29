@@ -1,6 +1,6 @@
 <?php
-    ini_set('display_errors', 0);
-    error_reporting(E_ALL);
+    // ini_set('display_errors', 0);
+    // error_reporting(E_ALL);
 ?>
 
 
@@ -24,14 +24,25 @@
             </section>
         </section>
         <?php
+            require __DIR__ . '/conf/config.php';
+            $conn = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+        	$conn->set_charset("utf8mb4");
+
+            $seed = 0;
+            if (isset($_GET['seed']) && !empty($_GET['seed'])) {
+                $seed = intval(mysqli_real_escape_string($conn, $_GET['seed']));
+                echo "Seeded run";
+            }
+            else {
+                $seed = rand();
+            }
+
             echo "<a href='index.php'><i class='fa fa-home'></i></a>";
             
 
             $listaIdPytan = [];
             $lsitaOdpowiedzi = [];
-            require __DIR__ . '/conf/config.php';
-            $conn = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
-        	$conn->set_charset("utf8mb4");
+            
             $wybranyJezyk = $_GET['jezyk'] ?? 'pl';
 
             $allowed = ['pl', 'en', 'de', 'ua'];
@@ -100,7 +111,7 @@
                     SELECT id, nr_pyt, $pyt as pyt, $odp_a as odp_a, $odp_b as odp_b, $odp_c as odp_c, poprawna, media, zakres, pkt, kategorie
                     FROM pula_pytan
                     WHERE kategorie LIKE '%" . $_GET['kategoria'] . "%' AND pkt = 3 AND zakres = 'PODSTAWOWY'
-                    ORDER BY RAND()
+                    ORDER BY RAND($seed)
                     LIMIT 10
                 ) t1
 
@@ -110,7 +121,7 @@
                     SELECT id, nr_pyt, $pyt as pyt, $odp_a as odp_a, $odp_b as odp_b, $odp_c as odp_c, poprawna, media, zakres, pkt, kategorie
                     FROM pula_pytan
                     WHERE kategorie LIKE '%" . $_GET['kategoria'] . "%' AND pkt = 2 AND zakres = 'PODSTAWOWY'
-                    ORDER BY RAND()
+                    ORDER BY RAND($seed)
                     LIMIT 6
                 ) t2
 
@@ -120,15 +131,15 @@
                     SELECT id, nr_pyt, $pyt as pyt, $odp_a as odp_a, $odp_b as odp_b, $odp_c as odp_c, poprawna, media, zakres, pkt, kategorie
                     FROM pula_pytan
                     WHERE kategorie LIKE '%" . $_GET['kategoria'] . "%' AND pkt = 1 AND zakres = 'PODSTAWOWY'
-                    ORDER BY RAND()
+                    ORDER BY RAND($seed)
                     LIMIT 4
-                ) t3 ORDER BY RAND()";
+                ) t3 ORDER BY RAND($seed)";
             $querySpecjalistyczne = "
                 SELECT * FROM (
                     SELECT id, nr_pyt, $pyt as pyt, $odp_a as odp_a, $odp_b as odp_b, $odp_c as odp_c, poprawna, media, zakres, pkt, kategorie
                     FROM pula_pytan
                     WHERE kategorie LIKE '%" . $_GET['kategoria'] . "%' AND pkt = 3 AND zakres = 'SPECJALISTYCZNY'
-                    ORDER BY RAND()
+                    ORDER BY RAND($seed)
                     LIMIT 6
                 ) t1
 
@@ -138,7 +149,7 @@
                     SELECT id, nr_pyt, $pyt as pyt, $odp_a as odp_a, $odp_b as odp_b, $odp_c as odp_c, poprawna, media, zakres, pkt, kategorie
                     FROM pula_pytan
                     WHERE kategorie LIKE '%" . $_GET['kategoria'] . "%' AND pkt = 2 AND zakres = 'SPECJALISTYCZNY'
-                    ORDER BY RAND()
+                    ORDER BY RAND($seed)
                     LIMIT 4
                 ) t2
 
@@ -148,10 +159,11 @@
                     SELECT id, nr_pyt, $pyt as pyt, $odp_a as odp_a, $odp_b as odp_b, $odp_c as odp_c, poprawna, media, zakres, pkt, kategorie
                     FROM pula_pytan
                     WHERE kategorie LIKE '%" . $_GET['kategoria'] . "%' AND pkt = 1 AND zakres = 'SPECJALISTYCZNY'
-                    ORDER BY RAND()
+                    ORDER BY RAND($seed)
                     LIMIT 2
-                ) t3 ORDER BY RAND()";
+                ) t3 ORDER BY RAND($seed)";
 
+            echo $queryPodstawowe . "<br>" . $querySpecjalistyczne . "<br>";
             $resultPodstawowe = mysqli_query($conn, $queryPodstawowe);
 
             $resultSpecjalistyczne = mysqli_query($conn, $querySpecjalistyczne);
