@@ -45,7 +45,7 @@
             <option value="D+E">D+E</option>
             <option value="T">T</option>
         </select>
-        <br>
+        <br><br>
         <input type="number" id="seed" name="seed" placeholder="Seed losowania" min="0" max="9999999999"><br>
         <input type="submit" id='begin' value="Rozpocznij test">
     </form>
