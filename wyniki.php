@@ -205,7 +205,6 @@
         echo "<a href='index.php'><i class='fa fa-home'></i></a>";
         $poprawneBledne = implode(",", $poprawneBledne);
         echo "<input type='hidden' id='poprawneBledne' value='{$poprawneBledne}'>";
-        echo $poprawneBledne;
     ?>
     <a href='mailto:adikk99@gmail.com'><i class='fa fa-exclamation-triangle'></i><span id='zglos'><?php echo $zglos; ?></span></a>
 </body>

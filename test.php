@@ -163,7 +163,6 @@
                     LIMIT 2
                 ) t3 ORDER BY RAND($seed)";
 
-            echo $queryPodstawowe . "<br>" . $querySpecjalistyczne . "<br>";
             $resultPodstawowe = mysqli_query($conn, $queryPodstawowe);
 
             $resultSpecjalistyczne = mysqli_query($conn, $querySpecjalistyczne);
